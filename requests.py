@@ -41,7 +41,7 @@ async def get_tasks(user_id):
 
 async def get_completed_tasks_count(user_id):
     async with async_session() as session:
-        return await session.scalar(select(func.count(Task.id)).where(Task.completed == True, Task.user == user_id))
+        return await session.scalar(select(func.count(Task.id)).where(Task.completed == True))
 
 
 async def add_task(user_id, title):
