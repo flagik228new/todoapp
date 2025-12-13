@@ -49,18 +49,18 @@ class AdminTaskUpdate(BaseModel):
     
 @app.get("/api/tasks/{tg_id}")
 async def tasks(tg_id: int):
-    user = await rq.add_user(tg_id)
+    user = await rq.add_user(tg_id, "Пользователь")
     return await rq.get_tasks(user.idUser)
 
 @app.get("/api/main/{tg_id}")
 async def profile(tg_id: int):
-    user = await rq.add_user(tg_id)
+    user = await rq.add_user(tg_id, "Пользователь")
     completed_tasks_count = await rq.get_completed_tasks_count(user.idUser)
     return {'completedTasks': completed_tasks_count, 'userRole':user.userRole}
 
 @app.post("/api/add")
 async def add_task(task: AddTask):
-    user = await rq.add_user(task.tg_id)
+    user = await rq.add_user(task.tg_id, "Пользователь")
     await rq.add_task(user.idUser, task.title)
     return {'status': 'ok'}
 
